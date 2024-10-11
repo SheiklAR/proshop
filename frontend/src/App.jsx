@@ -1,14 +1,13 @@
 import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
-import ProductCard from "./components/ProductCard"
-import HomeScreen from "./screens/HomeScreen"
+import { Outlet } from "react-router-dom"
 const App = () => {
   return (
     <div>
       <NavBar />
       <div className="container bg-yellow-400 mx-auto">Welcome to Proshop</div>
       
-      <HomeScreen />
+      <Outlet />
       <Footer />
       </div>
   )
