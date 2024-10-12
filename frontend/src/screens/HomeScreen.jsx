@@ -1,5 +1,7 @@
 import { useGetProductsQuery } from "../slices/productApiSlice";
 import ProductCard from "./ProductCard";
+import Loader from "../components/Loader";
+import AlertMessage from "../components/AlertMessage";
 
 
 
@@ -10,20 +12,20 @@ const HomeScreen = () => {
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loader />
       ) : error ? (
-        <h1> {error.data?.message || error.error}</h1>)
-        : (
-          <>
-            <div className="py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 container mx-auto px-12">
-              {products.map((product) => (
-                <ProductCard
-                  key={product._id}
-                  product={product} />
-              ))}
-            </div>
-          </>
-        )}
+        <AlertMessage message={error.data?.message || error.error} />
+      ) : (
+        <>
+          <div className="py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 container mx-auto px-12">
+            {products.map((product) => (
+              <ProductCard
+                key={product._id}
+                product={product} />
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 }

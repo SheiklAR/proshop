@@ -1,6 +1,8 @@
 import { useParams, Link } from "react-router-dom"
 import { useGetProductDetailsQuery } from "../slices/productApiSlice";
 import ProductDetails from "../components/ProductDetails";
+import Loader from "../components/Loader";
+import AlertMessage from "../components/AlertMessage";
 
 
 const ProductScreen = () => {
@@ -15,13 +17,12 @@ const ProductScreen = () => {
       <button className="bg-slate-300 font-semibold px-3 py-1 my-2 rounded-md hover:bg-slate-200">
         <Link to="/">Go Back</Link>
       </button>
-
-      {isLoading ? (<h1>
-        Loading...
-      </h1>) : (
+ 
+      {isLoading ? 
+      <Loader /> : (
         error
-      ) ? (
-        <h1>{error.data?.message || error.error}</h1>
+        ) ? (
+            <AlertMessage message={error.data?.message || error.error}/>
       ) : (
         <>
           <div className="p-2 md:grid md:gird-col-3 md:gap-2">
