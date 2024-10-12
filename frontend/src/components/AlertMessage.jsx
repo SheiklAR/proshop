@@ -1,6 +1,6 @@
 import Alert from '@mui/material/Alert';
 
-const AlertMessage = ({ message = "this is an alert message" }) => {
+const AlertMessage = ({ message }) => {
   return (
     <>
       <Alert variant="filled" severity="error">

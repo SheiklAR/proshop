@@ -5,7 +5,7 @@ const Loader = () => {
     return <>
         <Box
             sx={{ display: 'flex' }}
-            size={50}
+            size={80}
             className="h-screen flex items-center justify-center"
         >
             <CircularProgress />
