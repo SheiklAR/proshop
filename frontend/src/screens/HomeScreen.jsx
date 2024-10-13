@@ -1,8 +1,8 @@
+import { useSelector } from "react-redux";
 import { useGetProductsQuery } from "../slices/productApiSlice";
 import ProductCard from "./ProductCard";
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
-
 
 
 const HomeScreen = () => {
