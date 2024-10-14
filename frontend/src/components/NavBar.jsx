@@ -11,12 +11,14 @@ const NavBar = () => {
     return (
         <div className='bg-gray-900 p-4'>
             <div className='flex container items-center text-white justify-between'>
-                <div className='font-bold py-4 text-2xl'>
-                    Proshop
-                </div>
+                <Link to="/">
+                    <div className='font-bold py-4 text-2xl'>
+                        Proshop
+                    </div>
+                </Link>
                 <div>
                     <div className='flex space-x-4 font-medium text-2xl items-center justify-center'>
-                        <Link to='#' className='inline-flex'>
+                        <Link to='/cart' className='inline-flex'>
                             <Badge badgeContent={ cartItems.length } color='primary'>
                                 <FaShoppingCart />
                             </Badge>

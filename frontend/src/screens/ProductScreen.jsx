@@ -21,7 +21,8 @@ const ProductScreen = () => {
 
   const { id: productId } = useParams();
 
-  const addToCartHandler = () => {
+  const addToCartHandler = (event) => {
+    event.preventDefault();
     dispatch(addToCart({ ...product, qty }));
     navigate('/cart')
   }
@@ -55,7 +56,12 @@ const ProductScreen = () => {
               <span>Price: <strong className="px-4 py-1">${product.price}</strong></span>
                   <span>Status: <strong className="px-4 py-1">{product.countInStock}</strong></span>
                   
-                  {product.countInStock > 0 && <Qty qty={qty} values={product.countInStock} handleChange={handleChange} /> }
+                  { product.countInStock > 0 &&
+                    <Qty qty={qty}
+                      values={product.countInStock}
+                      handleChange={handleChange}
+                    /> }
+                  
               <Link to="/">
                 <button
                   disabled={product.countInStock === 0}

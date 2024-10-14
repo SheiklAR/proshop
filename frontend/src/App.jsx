@@ -5,8 +5,6 @@ const App = () => {
   return (
     <div>
       <NavBar />
-      <div className="container bg-yellow-400 mx-auto">Welcome to Proshop</div>
-      
       <Outlet />
       <Footer />
       </div>
