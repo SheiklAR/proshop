@@ -1,5 +1,4 @@
-import asyncHandler from "../middleware/asyncHandler";
-import User from "../models/userModel";
+import asyncHandler from "../middleware/asyncHandler.js";
 
 //@desc Authenticate user
 //@route  POST /api/users/login
@@ -9,7 +8,7 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 //@desc   Register user
-//@route  POST /api/users
+//@route  POST /api/users/
 //@access Private
 const registerUser = asyncHandler(async (req, res) => {
     res.send('Register User')
@@ -37,7 +36,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 //@desc   Get all users
-//@route  GET /api/users
+//@route  GET /api/users/
 //@access Private/admin
 const getUsers = asyncHandler(async (req, res) => {
     res.send('all users')
