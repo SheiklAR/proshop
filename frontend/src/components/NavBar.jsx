@@ -23,7 +23,7 @@ const NavBar = () => {
                                 <FaShoppingCart />
                             </Badge>
                         </Link>
-                        <Link to="#">
+                        <Link to="/login">
                             <FaSignInAlt />
                         </Link>
                     </div>
