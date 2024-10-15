@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import connectDB from "./config/db.js";
 import dotenv from 'dotenv';
 dotenv.config();
@@ -13,6 +13,10 @@ const app = express();
 app.get('/', (req, res) => {
     res.send("Api is running...")
 });
+
+//body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
