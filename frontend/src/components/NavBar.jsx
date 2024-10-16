@@ -1,14 +1,32 @@
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaSignInAlt, FaBars } from 'react-icons/fa';
 import Badge from '@mui/material/Badge';
 import NavDropDown from './NavDropDown';
+import { logout } from '../slices/authSlice';
+import { useLogoutMutation } from '../slices/usersSlice';
 
 
 const NavBar = () => {
 
     const { cartItems } = useSelector((state) => state.cart);
     const { userInfo } = useSelector((state) => state.auth);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [logoutApiCall] = useLogoutMutation();
+
+    const handleLogout = async () => {
+        try {
+            await logoutApiCall().unwrap();
+            dispatch(logout());
+            navigate('/login');
+        } catch (err) {
+            console.log(err);
+        }
+        
+    }   
 
  
     return (
@@ -28,7 +46,7 @@ const NavBar = () => {
                         </Link>
 
                         {userInfo ? (
-                            <NavDropDown profileName={ userInfo.name } />
+                            <NavDropDown profileName={ userInfo.name } handleLogout={handleLogout} />
                         ) : (
                         <Link to="/login">
                             <FaSignInAlt />
