@@ -1,12 +1,15 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaSignInAlt, FaBars } from 'react-icons/fa';
-import  Badge  from '@mui/material/Badge';
+import Badge from '@mui/material/Badge';
+import NavDropDown from './NavDropDown';
 
 
 const NavBar = () => {
 
-    const { cartItems } = useSelector((state) => state.cart)
+    const { cartItems } = useSelector((state) => state.cart);
+    const { userInfo } = useSelector((state) => state.auth);
+
  
     return (
         <div className='bg-gray-900 p-4'>
@@ -23,9 +26,15 @@ const NavBar = () => {
                                 <FaShoppingCart />
                             </Badge>
                         </Link>
+
+                        {userInfo ? (
+                            <NavDropDown profileName={ userInfo.name } />
+                        ) : (
                         <Link to="/login">
                             <FaSignInAlt />
                         </Link>
+     
+                        )}
                     </div>
                 </div>
             </div>
