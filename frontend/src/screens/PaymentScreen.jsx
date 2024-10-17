@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { savePaymentMethod } from '../slices/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import CheckoutSteps from '../components/CheckoutSteps';
 
 
 
@@ -28,8 +29,9 @@ const PaymentScreen = () => {
 
 
     return <>
+        <CheckoutSteps step1 step2 step3 />
         <div className="max-w-lg mx-auto">
-            <h2 className='text-3xl font-semibold text-gray-700 py-2 mx-2'>
+            <h2 className='text-3xl font-semibold text-gray-600 py-2 mx-2'>
                 Payment
             </h2>
             <form

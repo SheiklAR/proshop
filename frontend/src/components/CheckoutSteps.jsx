@@ -13,7 +13,7 @@ const CheckoutSteps = ({step1, step2, step3, step4}) => {
                     : <button disabled style={{ color: 'gray' }}>Shipping</button>}
             </div>
             <div className='text-base font-semibold text-gray-700'>
-                {step3 ? <Link to="/payment">payment</Link>
+                {step3 ? <Link to="/payment">Payment</Link>
                     : <button disabled style={{ color: 'gray' }}>Payment</button>}
             </div>
             <div className='text-base font-semibold text-gray-700'>
