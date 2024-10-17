@@ -6,8 +6,8 @@ const LoginPage = ({email, password, handleEmailChange, handlePasswordChange, ha
     return
     <>
         
-        <div className='max-w-sm mx-auto py-3'>
-            <h1 className='text-3xl font-semibold text-gray-600 py-2'>Sign In</h1>
+        <div className='max-w-lg mx-auto py-3'>
+            <h1 className='text-3xl mx-2 font-semibold text-gray-600 py-2'>Sign In</h1>
             <form
                 onSubmit={handleSubmit}
                 className='bg-slate-100 p-8 my-2 rounded-md'
