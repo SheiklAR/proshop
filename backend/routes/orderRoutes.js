@@ -15,7 +15,7 @@ import {
 
 router.route('/').post(protect, addOrderItems).get(protect, admin, getOrders);
 router.get('/myorders', protect, getMyOrder);
-router.get('/:id', protect, admin, getOrderById);
+router.get('/:id', protect, getOrderById);
 router.put('/:id/pay',protect, updateOrderToPaid);
 router.put('/:id/deliver',protect, admin, updateOrderToDelivered);
 
