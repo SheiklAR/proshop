@@ -1,6 +1,10 @@
+import Stripe from "stripe";
 import asyncHandler from "../middleware/asyncHandler.js";
 import Order from "../models/orderModel.js";
+import { config } from "dotenv";
+config()
 
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 // @desc   Create New Order
 // @route  POST /api/orders
@@ -66,14 +70,29 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 // @desc   Update order to paid
-// @route  POST /api/orders/:id/pay
+// @route  PUT /api/orders/:id/pay
 // @access Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
-    res.send("Update order to paid");
+    const order = await Order.findById(req.params.id)
+
+    if (order) {
+        order.isPaid = true;
+        order.paidAt = Date.now();
+        order.paymentResult = {
+            id: req.body.id,
+            status: req.body.status,
+            update_time: req.body.update_time,
+            email_address: req.body.email_address,
+        }
+    
+        const updateOrder = await order.save();
+
+        res.status(200).json(updateOrder);
+    }
 });
 
 // @desc   Update order to delivered
-// @route  POST /api/orders/:id/deliver
+// @route  PUT /api/orders/:id/deliver
 // @access Private/admin
 const updateOrderToDelivered = asyncHandler(async (req, res) => {
     res.send("Update order to deliver");
@@ -87,6 +106,23 @@ const getOrders = asyncHandler(async (req, res) => {
     res.send("Get all Orders");
 });
 
+const createPaymentIntent = asyncHandler(async (req, res) => {
+    await console.log("amount", req.body.amount);
+    const amount = Math.round(req.body.amount * 100);
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            currency: "usd",
+            amount: amount,
+            automatic_payment_methods: {enabled: true}
+        });
+    
+        res.send({ clientSecret: paymentIntent.client_secret });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+        
+    }
+})
+
 export {
     addOrderItems,
     getMyOrder,
@@ -94,4 +130,5 @@ export {
     updateOrderToPaid,
     updateOrderToDelivered,
     getOrders,
+    createPaymentIntent,
 };

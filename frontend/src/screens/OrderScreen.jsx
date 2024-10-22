@@ -1,14 +1,48 @@
 import { useParams, Link } from "react-router-dom"
-import { useGetOrderDetailsQuery } from "../slices/ordersApiSlice"
+import { useGetOrderDetailsQuery, useGetStripeClientSecretMutation } from "../slices/ordersApiSlice"
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
+import { useEffect, useState } from "react";
+import CheckOutForm from "../components/CheckOutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 
 const OrderScreen = () => {
+    const [isPaid, setIsPaid] = useState(false);
+    const [paidStatus, setPaidStatus] = useState('Not Paid');
+    const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY);
+
     const { id: orderId } = useParams();
 
+    // console.log("sp", stripePromise)
+
     const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId);
-    console.log("orderrr",order)
+    
+
+    const [getClientSecret, {data: clientSecret,  isLoading: isSecretLoading, error: secretError}] = useGetStripeClientSecretMutation()
+
+    useEffect(() => {
+        if (order) {
+            console.log(order)
+            setIsPaid(order.isPaid);
+            console.log("is Paid", isPaid)
+
+            if (order.isPaid) {
+                setPaidStatus(order.paidAt) 
+
+            } else {
+                getClientSecret({ amount: order.totalPrice });
+            }
+            if (secretError) {
+                console.log(secretError);
+            }
+        }
+    }, [order, getClientSecret, secretError]);
+    
+    console.log("cs",clientSecret)
+
+
     
 
     return <>
@@ -33,7 +67,7 @@ const OrderScreen = () => {
                             
                         <p className="font-medium pb-2"><strong>Method:</strong> {order.paymentMethod}</p>
                             
-                        <AlertMessage message={`Not Delivered`} />
+                        <AlertMessage message={isPaid ? `Paid at ${paidStatus}`: 'Not Paid'} color={isPaid ? 'success' : 'error'} />
                         </div>
                         
                         <h2 className="text-2xl font-semibold py-2 pb-3">Order Items</h2>
@@ -41,8 +75,7 @@ const OrderScreen = () => {
                     <table className="table-auto">
                         <tbody>
                             {order.orderItems.map((item, index) => (
-                                <>
-                                    <tr>
+                                    <tr key={index}>
                                         <td>
                                             <div key={index}>
                                                 <div className="flex gap-2 col-span-2">
@@ -55,7 +88,6 @@ const OrderScreen = () => {
                                             {item.qty} x {item.price} = {item.qty * item.price}
                                         </td>
                                     </tr>
-                                </>
                             ))}
                         </tbody>
                     </table>
@@ -84,8 +116,14 @@ const OrderScreen = () => {
                         </table>
                 <div>
                     
-                </div>
-                
+                    </div>
+
+                    {clientSecret && !isPaid &&  (
+
+                    <Elements stripe={stripePromise} options={{clientSecret: clientSecret.clientSecret}}>
+                        <CheckOutForm setIsPaid={setIsPaid} setPaidStatus={setPaidStatus} />
+                    </Elements>
+                    )}
             </div>
         </>
         )}
