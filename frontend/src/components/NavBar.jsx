@@ -5,6 +5,7 @@ import Badge from '@mui/material/Badge';
 import NavDropDown from './NavDropDown';
 import { logout } from '../slices/authSlice';
 import { useLogoutMutation } from '../slices/usersSlice';
+import AdminDropDown from './AdminDropDown';
 
 
 const NavBar = () => {
@@ -53,6 +54,11 @@ const NavBar = () => {
                         </Link>
      
                         )}
+
+                        {userInfo && userInfo.isAdmin && (
+                            <AdminDropDown />
+                        )
+                        }
                     </div>
                 </div>
             </div>

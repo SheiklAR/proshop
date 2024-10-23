@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import CheckOutForm from "../components/CheckOutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { toast } from "react-toastify";
 
 
 const OrderScreen = () => {
@@ -15,8 +16,6 @@ const OrderScreen = () => {
 
     const { id: orderId } = useParams();
 
-    // console.log("sp", stripePromise)
-
     const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId);
     
 
@@ -24,9 +23,7 @@ const OrderScreen = () => {
 
     useEffect(() => {
         if (order) {
-            console.log(order)
             setIsPaid(order.isPaid);
-            console.log("is Paid", isPaid)
 
             if (order.isPaid) {
                 setPaidStatus(order.paidAt) 
@@ -35,15 +32,12 @@ const OrderScreen = () => {
                 getClientSecret({ amount: order.totalPrice });
             }
             if (secretError) {
-                console.log(secretError);
+                toast.error(secretError);
             }
         }
     }, [order, getClientSecret, secretError]);
     
-    console.log("cs",clientSecret)
-
-
-    
+    // console.log("cs",clientSecret)
 
     return <>
         {isLoading ? (

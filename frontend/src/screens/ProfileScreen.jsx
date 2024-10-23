@@ -18,7 +18,6 @@ const ProfileScreen = () => {
     const dispatch = useDispatch();
 
     const { data: myOrders } = useGetMyOrdersQuery();
-    console.log("myorders", myOrders)
 
     const [updateProfile, { isLoading:isUpdateProfileLoading }] = useUpdateMutation();
 
