@@ -49,9 +49,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
 // @desc   Get logged in user orders
 // @route  GET /api/orders/myorders
 // @access Private
-const getMyOrder = asyncHandler(async (req, res) => {
-    const orders = await Order.findOne({ user: req.user._id });
-    res.json(200).json(orders);
+const getMyOrders = asyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.status(200).json(orders);
 });
 
 // @desc   Get order by Id
@@ -106,6 +106,8 @@ const getOrders = asyncHandler(async (req, res) => {
     res.send("Get all Orders");
 });
 
+
+// STRIPE PAYMENT INTENT    
 const createPaymentIntent = asyncHandler(async (req, res) => {
     await console.log("amount", req.body.amount);
     const amount = Math.round(req.body.amount * 100);
@@ -125,7 +127,7 @@ const createPaymentIntent = asyncHandler(async (req, res) => {
 
 export {
     addOrderItems,
-    getMyOrder,
+    getMyOrders,
     getOrderById,
     updateOrderToPaid,
     updateOrderToDelivered,

@@ -11,4 +11,8 @@
     .btn {
         @apply text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center
     }
+    .input-ch-box {
+        @apply block border-2 px-2 text-gray-500 font-normal rounded py-1 border-gray-600 focus:border-gray-700 my-1
+    }
+
     }

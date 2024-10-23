@@ -4,7 +4,7 @@ import User from "../models/userModel.js";
 import { generateToken } from "../utils/generateToken.js";
 import { admin } from "../middleware/authMiddleware.js";
 
-//@desc Authenticate user
+//@desc   Authenticate user
 //@route  POST /api/users/login
 //@access Private
 const authUser = asyncHandler(async (req, res) => {
