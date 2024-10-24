@@ -36,7 +36,7 @@ export default function AdminDropDown() {
         onClose={handleClose}
         TransitionComponent={Fade}
       > 
-        <Link to="/admin/prouductlist">
+        <Link to="/admin/productlist">
         <MenuItem >Products</MenuItem>
         </Link>
         <Link to="/admin/userlist">

@@ -13,12 +13,13 @@ import Loader from "../components/Loader";
 const PlaceOrderScreen = () => {
     const cart = useSelector((state) => state.cart);
 
+    console.log("cartItems", cart.cartItems)
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [createOrder, { isLoading, error }] = useCreateOrderMutation();
-    console.log("isLoading", isLoading)
-    console.log("error",error)
+
 
     useEffect(() => {
         if (!cart.shippingAddress.address) {
@@ -31,6 +32,7 @@ const PlaceOrderScreen = () => {
 
     const handlePlaceOrder = async (e) => {
         e.preventDefault();
+        console.log('Order items before sending:', cart.cartItems);
         try {
             const res = await createOrder({
                 orderItems: cart.cartItems,
@@ -45,7 +47,7 @@ const PlaceOrderScreen = () => {
             navigate(`/orders/${res._id}`);
             
         } catch (err) {
-            toast.error(err);
+            toast.error(err.data.message);
         }
     }
 
@@ -105,7 +107,7 @@ const PlaceOrderScreen = () => {
                     <li className="mx-2">Tax: ${cart.taxPrice }</li>
                     <li className="mx-2">Total: ${cart.totalPrice}</li>
                 </ul>
-                <div>{error && <AlertMessage error/>}</div>
+                <div>{error && <AlertMessage message={error.data.message}/>}</div>
                 <button
                     type="button"
                     className="btn my-2"

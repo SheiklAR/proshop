@@ -140,7 +140,7 @@ const OrderScreen = () => {
                     )}
 
                     {userInfo && userInfo.isAdmin && isPaid && !isDelivered && (
-                        <button className="btn my-2" onClick={handleOrderDeliver}>Mark as isDelivered</button>
+                        <button className="btn my-2" onClick={handleOrderDeliver}>Mark as Delivered</button>
                     )}
 
                     {isDeliverLoading && (<Loader />)}
