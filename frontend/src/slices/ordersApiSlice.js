@@ -46,7 +46,18 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                 url: ORDERS_URL,
             }),
             keepUnusedDataFor: 5
-        })
+        }),
+
+        updateOrderDeliver: builder.mutation({
+            query: ({ orderId } ) => {
+                
+                console.log("orderId from redux", orderId);
+                return({
+                    url: `${ORDERS_URL}/${orderId}/deliver`,
+                    method: "PUT",
+                })
+            } 
+        }),
     })
 });
 
@@ -57,5 +68,5 @@ export const {
     useGetStripeClientSecretMutation,
     useGetMyOrdersQuery,
     useGetAllOrdersQuery,
-    
+    useUpdateOrderDeliverMutation,
 } = ordersApiSlice;

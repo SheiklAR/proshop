@@ -7,7 +7,7 @@ import { FaTimes } from 'react-icons/fa';
 
 const OrderListScreen = () => {
     const { data: allOrders, isLoading, error } = useGetAllOrdersQuery();
-    console.log(allOrders)
+
     return <>
         <h1 className='p-2 text-2xl font-semibold text-gray-600'>Orders</h1>
         {isLoading ? (<Loader />) : error ? (<AlertMessage message={error} />) : (

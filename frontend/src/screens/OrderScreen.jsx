@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom"
-import { useGetOrderDetailsQuery, useGetStripeClientSecretMutation } from "../slices/ordersApiSlice"
+import { useGetOrderDetailsQuery, useGetStripeClientSecretMutation, useUpdateOrderDeliverMutation } from "../slices/ordersApiSlice"
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
 import { useEffect, useState } from "react";
@@ -7,23 +7,30 @@ import CheckOutForm from "../components/CheckOutForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+
 
 
 const OrderScreen = () => {
     const [isPaid, setIsPaid] = useState(false);
     const [paidStatus, setPaidStatus] = useState('Not Paid');
+    const [isDelivered, setIsDelivered] = useState(false);
     const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY);
+    const { userInfo } = useSelector((state) => state.auth);
+
 
     const { id: orderId } = useParams();
 
     const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId);
     
-
-    const [getClientSecret, {data: clientSecret,  isLoading: isSecretLoading, error: secretError}] = useGetStripeClientSecretMutation()
+    const [getClientSecret, { data: clientSecret, isLoading: isSecretLoading, error: secretError }] = useGetStripeClientSecretMutation();
+    
+    const [orderDeliver, { data: deliverData, refetch: deliverRefetch, isLoading: isDeliverLoading, error: deliverError }] = useUpdateOrderDeliverMutation();
 
     useEffect(() => {
         if (order) {
             setIsPaid(order.isPaid);
+            setIsDelivered(order.isDelivered || false);
 
             if (order.isPaid) {
                 setPaidStatus(order.paidAt) 
@@ -38,6 +45,19 @@ const OrderScreen = () => {
     }, [order, getClientSecret, secretError]);
     
     // console.log("cs",clientSecret)
+
+    const handleOrderDeliver = async () => {
+        try {
+            await orderDeliver({ orderId });
+            console.log("isdeliverloading",isDeliverLoading);
+            deliverRefetch();
+            toast.success('Order Delivered');
+            window.location.reload();
+        } catch (err) {
+            toast.error(err?.data?.message || err.message);
+        }
+        
+    }
 
     return <>
         {isLoading ? (
@@ -54,7 +74,7 @@ const OrderScreen = () => {
                             <li className="font-medium"><strong>Email:</strong> {order.user.email}</li>
                             <li className="font-medium"><strong>Address:</strong> {order.shippingAddress.address}, {order.shippingAddress.country}</li>
                         </ul>
-                        <AlertMessage message={`Not Delivered`} />
+                        <AlertMessage message={isDelivered ? `Delivered at ${order.deliveredAt.substring(0,10)}` : 'Not delivered'} color={isDelivered ? 'success' : 'error'} />
                     </div>
                     <div>
                         <h2 className="text-2xl font-semibold py-2 pb-3">Payment Method</h2>
@@ -112,12 +132,19 @@ const OrderScreen = () => {
                     
                     </div>
 
-                    {clientSecret && !isPaid &&  (
+                    {clientSecret && !isPaid && userInfo && !userInfo.isAdmin && (
 
                     <Elements stripe={stripePromise} options={{clientSecret: clientSecret.clientSecret}}>
                         <CheckOutForm setIsPaid={setIsPaid} setPaidStatus={setPaidStatus} />
                     </Elements>
                     )}
+
+                    {userInfo && userInfo.isAdmin && isPaid && !isDelivered && (
+                        <button className="btn my-2" onClick={handleOrderDeliver}>Mark as isDelivered</button>
+                    )}
+
+                    {isDeliverLoading && (<Loader />)}
+
             </div>
         </>
         )}

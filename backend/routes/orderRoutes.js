@@ -10,7 +10,7 @@ import {
     updateOrderToPaid,
     updateOrderToDelivered,
     getOrders,
-    createPaymentIntent
+    createPaymentIntent,
 
 } from '../controllers/orderController.js';
 
