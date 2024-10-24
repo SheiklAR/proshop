@@ -26,7 +26,8 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
         getMyOrders: builder.query({
             query: () => ({
                 url: `${ORDERS_URL}/myOrders`
-            })
+            }),
+            keepUnusedDataFor: 5
         }),
 
         getStripeClientSecret: builder.mutation({
@@ -38,6 +39,13 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                 },
                 body: JSON.stringify({ amount })
             })
+        }),
+
+        getAllOrders: builder.query({
+            query: () => ({
+                url: ORDERS_URL,
+            }),
+            keepUnusedDataFor: 5
         })
     })
 });
@@ -48,5 +56,6 @@ export const {
     usePayOrderMutation,
     useGetStripeClientSecretMutation,
     useGetMyOrdersQuery,
+    useGetAllOrdersQuery,
     
 } = ordersApiSlice;

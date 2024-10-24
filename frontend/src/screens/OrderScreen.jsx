@@ -61,7 +61,7 @@ const OrderScreen = () => {
                             
                         <p className="font-medium pb-2"><strong>Method:</strong> {order.paymentMethod}</p>
                             
-                        <AlertMessage message={isPaid ? `Paid at ${paidStatus}`: 'Not Paid'} color={isPaid ? 'success' : 'error'} />
+                        <AlertMessage message={isPaid ? `Paid at ${paidStatus.substring(0,10)}`: 'Not Paid'} color={isPaid ? 'success' : 'error'} />
                         </div>
                         
                         <h2 className="text-2xl font-semibold py-2 pb-3">Order Items</h2>
