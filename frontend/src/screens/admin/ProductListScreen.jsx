@@ -20,7 +20,8 @@ const ProductListScreen = () => {
                 toast.error(err?.data?.message || err.error);
             }
         }
-  }
+    };
+
   const handleDelete = (id) => {
     console.log(id)
   }
@@ -76,7 +77,7 @@ const ProductListScreen = () => {
                                         {product.brand}
                                     </td>
                                     <td className="px-6 py-4 inline-flex space-x-2 font-semibold text-lg">
-                                        <Link to={`admin/product/${product._id}/edit`}>
+                                        <Link to={`/admin/product/${product._id}/edit`}>
                                             <button>
                                                 <FaEdit />
                                             </button>
