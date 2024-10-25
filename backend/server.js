@@ -1,3 +1,4 @@
+import path from 'path';
 import express, { json } from "express";
 import connectDB from "./config/db.js";
 import dotenv from 'dotenv';
@@ -8,6 +9,7 @@ const app = express();
 import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cookieParser from "cookie-parser";
 import { createPaymentIntent } from "./controllers/orderController.js";
@@ -29,12 +31,13 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.post('/api/config/stripe', createPaymentIntent);
+app.post('/api/upload', userRoutes);
 
+const __dirname = path.resolve(); // set _dirname to current directory
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(notFound);
 app.use(errorHandler);
 
-
-// app.post('/api/create-payment', createPaymentRequest)
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT} port`));
