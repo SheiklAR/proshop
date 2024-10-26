@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'
-import { useCreateProductMutation, useGetProductsQuery } from '../../slices/productApiSlice'
+import { useCreateProductMutation, useDeleteProductMutation, useGetProductsQuery } from '../../slices/productApiSlice'
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 
@@ -10,7 +10,9 @@ const ProductListScreen = () => {
   
     const [createProduct, { data: createdProduct, isLoading: isCreateLoading, error }
     ] = useCreateProductMutation();
-  
+    
+    const [deleteProduct, { isLoading: isDeleteProductLoading }] = useDeleteProductMutation();
+
     const handleCreateProduct = async () => {
         if (window.confirm('Are you sure you want to create a new Produt?')) {
             try {
@@ -22,8 +24,16 @@ const ProductListScreen = () => {
         }
     };
 
-  const handleDelete = (id) => {
-    console.log(id)
+  const handleDelete = async (id) => {
+      if (window.confirm(`Are you sure`)) {
+        try {
+            await deleteProduct(id);
+            refetch();
+            toast.success('Product deleted');
+        } catch (err) {
+            toast.error(err?.data?.message || err.error);
+        }
+    }
   }
 
     return <>
@@ -33,6 +43,8 @@ const ProductListScreen = () => {
                 <button className='btn p-1 rounded-md px-2 bg-gray-800 font-medium inline-flex items-center' onClick={handleCreateProduct}> <FaEdit /> Create New Prouduct</button>
             </div>
             {isCreateLoading && <Loader />}
+            {isDeleteProductLoading && <Loader />}
+            
             {isLoading ? <Loader /> : (
         
                 <div className="overflow-hidden">

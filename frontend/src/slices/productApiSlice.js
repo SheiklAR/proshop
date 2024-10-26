@@ -1,5 +1,6 @@
 import { apiSlice } from "./apiSlice";
 import { PRODUCTS_URL, UPLOAD_URL } from "../constants";
+import { deleteProduct } from "../../../backend/controllers/productController";
 
 
 export const ProductApiSlice = apiSlice.injectEndpoints({
@@ -44,8 +45,15 @@ export const ProductApiSlice = apiSlice.injectEndpoints({
                 method: "POST",
                 body: data,
             })
-        })
+        }),
+        
+        deleteProduct: builder.mutation({
+            query: (productId) => ({
+                url: `${PRODUCTS_URL}/${productId}`,
+                method: "DELETE",
+            })
+        }),
     }),
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUploadProductImageMutation } = ProductApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUploadProductImageMutation, useDeleteProductMutation } = ProductApiSlice;
