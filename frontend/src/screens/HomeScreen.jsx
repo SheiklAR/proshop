@@ -3,17 +3,20 @@ import { useGetProductsQuery } from "../slices/productApiSlice";
 import ProductCard from "./ProductCard";
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
+import { useEffect } from "react";
 
 
 const HomeScreen = () => {
 
   const { data: products, isLoading, error } = useGetProductsQuery();
+  useEffect(()=> {console.log(products)}, [products])
   
   return (
     <>
       {isLoading ? (
         <Loader />
       ) : error ? (
+
         <AlertMessage message={error.data?.message || error.error} />
       ) : (
         <>

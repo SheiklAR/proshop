@@ -14,6 +14,9 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cookieParser from "cookie-parser";
 import { createPaymentIntent } from "./controllers/orderController.js";
 
+const __dirname = path.resolve(); // set _dirname to current directory
+console.log("dirname", __dirname);
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 
 app.get('/', (req, res) => {
@@ -30,11 +33,9 @@ app.use(cookieParser());
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/upload', uploadRoutes);
 app.post('/api/config/stripe', createPaymentIntent);
-app.post('/api/upload', userRoutes);
 
-const __dirname = path.resolve(); // set _dirname to current directory
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.use(notFound);
 app.use(errorHandler);

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
-import { useGetProductDetailsQuery, useUpdateProductMutation } from "../../slices/productApiSlice";
+import { useGetProductDetailsQuery, useUpdateProductMutation, useUploadProductImageMutation } from "../../slices/productApiSlice";
 import Loader from "../../components/Loader";
 import AlertMessage from "../../components/AlertMessage";
 import { toast } from "react-toastify";
@@ -9,9 +9,10 @@ import { useNavigate } from "react-router-dom";
 
 const ProductEditScreen = () => {
     const [name, setName] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0);
     const [brand, setBrand] = useState('');
-    const [countInStock, setCountInStock] = useState('');
+    const [image, setImage] = useState('');
+    const [countInStock, setCountInStock] = useState(0);
     const [category, setCategory] = useState('');
     const [description, setDescription] = useState('');
 
@@ -24,11 +25,14 @@ const ProductEditScreen = () => {
 
     const [updateProduct, { data: updatedProduct, isLoading: isLoadingUpdate }] = useUpdateProductMutation();
 
+    const [uploadImage, { isLoading: isUploadImageLoading }] = useUploadProductImageMutation();
+    
     useEffect(() => { 
         if (product) {
             setName(product.name);
             setPrice(product.price);
             setBrand(product.brand);
+            setImage(product.image)
             setCategory(product.category);
             setCountInStock(product.countInStock);
             setDescription(product.description);
@@ -42,20 +46,37 @@ const ProductEditScreen = () => {
             productId,
             name, 
             price,
-            brand, 
+            brand,
+            image,
             category,
             countInStock,
             description,
         }
         
         const result = await updateProduct(updatedProduct);
-        console.log(result)
+        console.log("result",result)
         if (result.error) {
             toast.error(result.error.data.message);
         } else {
             toast.success("Product Updated");
             navigate('/admin/productlist');
         }
+    }
+
+    const handleFileUpload = async (e) => {
+        const formData = new FormData();
+        formData.append('image', e.target.files[0]);
+        console.log("formDAta",formData)
+        try {
+            const res = await uploadImage(formData).unwrap();
+            toast.success(res.message);
+            setImage(res.image);
+            console.log("res.image", res.image);
+        } catch (err) {
+            console.log(err)
+            toast.error(err?.data?.message || err.error);
+        }
+
     }
 
     return <>
@@ -96,7 +117,20 @@ const ProductEditScreen = () => {
                     value={brand}
                     onChange={(e) => setBrand(e.target.value)}
                     className="input-box"
-                    placeholder='Sony'/>
+                    placeholder='Brand Name'/>
+            </div>
+            <div className="mb-5">
+                <label className="block mb-2 text-sm font-medium text-gray-500">Image</label>
+                <input
+                    type="text"
+                    value={image}
+                    onChange={(e) => setImage}
+                    className="input-box"
+                    placeholder='Image-name'/>
+                <input
+                    type="file"
+                    onChange={handleFileUpload}
+                    className="input-box" />
             </div>
             <div className="mb-5">
                 <label className="block mb-2 text-sm font-medium text-gray-500">Count in Stock</label>
