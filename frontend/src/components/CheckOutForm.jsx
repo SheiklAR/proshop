@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js"
-import { usePayOrderMutation, useGetOrderDetailsQuery } from "../slices/ordersApiSlice";
+import { usePayOrderMutation, useGetOrderDetailsQuery } from "../slices/orderApiSlice";
 import { useParams } from "react-router-dom";
 
 

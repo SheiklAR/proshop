@@ -4,7 +4,7 @@ import { FaShoppingCart, FaSignInAlt, FaBars } from 'react-icons/fa';
 import Badge from '@mui/material/Badge';
 import NavDropDown from './NavDropDown';
 import { logout } from '../slices/authSlice';
-import { useLogoutMutation } from '../slices/usersSlice';
+import { useLogoutMutation } from '../slices/userApiSlice';
 import AdminDropDown from './AdminDropDown';
 
 

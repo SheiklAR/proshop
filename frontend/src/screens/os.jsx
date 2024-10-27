@@ -1,8 +1,8 @@
 import { useParams, Link } from "react-router-dom"
-import { useGetOrderDetailsQuery, usePayOrderMutation } from "../slices/ordersApiSlice"
+import { useGetOrderDetailsQuery, usePayOrderMutation } from "../slices/orderApiSlice"
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
-import { useGetStripeClientIdMutation } from "../slices/ordersApiSlice";
+import { useGetStripeClientIdMutation } from "../slices/orderApiSlice";
 import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";

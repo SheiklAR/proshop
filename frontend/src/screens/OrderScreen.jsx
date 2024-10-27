@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom"
-import { useGetOrderDetailsQuery, useGetStripeClientSecretMutation, useUpdateOrderDeliverMutation } from "../slices/ordersApiSlice"
+import { useGetOrderDetailsQuery, useGetStripeClientSecretMutation, useUpdateOrderDeliverMutation } from "../slices/orderApiSlice"
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
 import { useEffect, useState } from "react";

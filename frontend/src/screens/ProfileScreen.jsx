@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { useUpdateMutation } from "../slices/usersSlice";
+import { useUpdateMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { useGetMyOrdersQuery } from "../slices/ordersApiSlice";
+import { useGetMyOrdersQuery } from "../slices/orderApiSlice";
 import { FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

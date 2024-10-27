@@ -136,15 +136,15 @@ const getUsers = asyncHandler(async (req, res) => {
 //@route  delete /api/users/:id
 //@access Private/admin
 const deleteUser = asyncHandler(async (req, res) => {
-    const user = await User.findById(id);
+    const user = await User.findById(req.params.id);
     
     if (user) {
         if (user.isAdmin) {
             res.status(400)
             throw new Error("Cannot Delete Admin");
         }
-        await Product.deleteOne({ _id: user._id });
-        return res.status(200).json('User deleted Successfully');
+        await User.deleteOne({ _id: user._id });
+        return res.status(200).json( 'User deleted Successfully');
     } else {
         res.status(404);
         throw new Error({messgae: "User Not Found"});
@@ -155,7 +155,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 //@route  GET /api/users/:id
 //@access Private/admin
 const getUserById = asyncHandler(async (req, res) => {
-    const user = User.findById(req.params.id).select('-password');
+    const user = await User.findById(req.params.id).select('-password');
 
     if (user) {
         return res.status(200).json(user);
@@ -168,7 +168,8 @@ const getUserById = asyncHandler(async (req, res) => {
 //@desc   Update User
 //@route  put /api/users/:id
 //@access Private/admin
-const updateUser= asyncHandler(async (req, res) => {
+const updateUser = asyncHandler(async (req, res) => {
+    
     const user = await User.findById(req.params.id);
 
     if (user) {
@@ -179,10 +180,10 @@ const updateUser= asyncHandler(async (req, res) => {
         const updatedUser = await user.save();
 
         res.status(200).json({
-            _id: updateUser._id,
-            name: updateUser.name,
-            email: updateUser.email,
-            isAdmin: updateUser.isAdmin,
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            isAdmin: updatedUser.isAdmin,
         });
 
     } else {

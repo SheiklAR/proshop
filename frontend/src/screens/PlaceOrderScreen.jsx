@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps"
-import { useCreateOrderMutation } from "../slices/ordersApiSlice";
+import { useCreateOrderMutation } from "../slices/orderApiSlice";
 import { clearCartItems } from "../slices/cartSlice";
 import { toast } from "react-toastify";
 import AlertMessage from "../components/AlertMessage";

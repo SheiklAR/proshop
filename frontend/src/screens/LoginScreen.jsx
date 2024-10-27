@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import LoginPage from "../components/LoginPage";
-import { useLoginMutation } from "../slices/usersSlice";
+import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from "react-router-dom";

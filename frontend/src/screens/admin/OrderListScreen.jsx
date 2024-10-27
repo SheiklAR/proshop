@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useGetAllOrdersQuery } from '../../slices/ordersApiSlice'
+import { useGetAllOrdersQuery } from '../../slices/orderApiSlice'
 import Loader from '../../components/Loader';
 import AlertMessage from '../../components/AlertMessage';
 import { FaTimes } from 'react-icons/fa';
