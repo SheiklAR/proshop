@@ -5,13 +5,14 @@ import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Paginate from "../components/Paginate";
 
 
 const HomeScreen = () => {
   const { pageNumber } = useParams();
 
   const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
-  // useEffect(()=> {console.log(data)}, [data])
+  // useEffect(() => { console.log(data) }, [data]);
   
   return (
     <>
@@ -28,7 +29,10 @@ const HomeScreen = () => {
                 key={product._id}
                 product={product} />
             ))}
-          </div>
+              </div>
+              <div className="px-12">
+              <Paginate pages={data.pages} page={data.page} />
+              </div>
         </>
       )}
     </>

@@ -1,12 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import { useCreateProductMutation, useDeleteProductMutation, useGetProductsQuery } from '../../slices/productApiSlice'
 import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
+import Paginate from '../../components/Paginate';
 
 const ProductListScreen = () => {
-  const { data:products, isLoading,  refetch } = useGetProductsQuery();
-  console.log(products)
+    const { pageNumber } = useParams();
+    const { data, isLoading, refetch } = useGetProductsQuery({ pageNumber });
   
     const [createProduct, { data: createdProduct, isLoading: isCreateLoading, error }
     ] = useCreateProductMutation();
@@ -24,23 +25,23 @@ const ProductListScreen = () => {
         }
     };
 
-  const handleDelete = async (id) => {
-      if (window.confirm(`Are you sure`)) {
-        try {
-            await deleteProduct(id);
-            refetch();
-            toast.success('Product deleted');
-        } catch (err) {
-            toast.error(err?.data?.message || err.error);
+    const handleDelete = async (id) => {
+        if (window.confirm(`Are you sure`)) {
+            try {
+                await deleteProduct(id);
+                refetch();
+                toast.success('Product deleted');
+            } catch (err) {
+                toast.error(err?.data?.message || err.error);
+            }
         }
     }
-  }
 
     return <>
         <div className='container  md:max-w-4xl mx-auto py-2'>
             <div className='m-2 flex justify-between'>
                 <h1 className='text-gray-600 font-bold text-3xl'>Products</h1>
-                <button className='btn p-1 rounded-md px-2 bg-gray-800 font-medium inline-flex items-center' onClick={handleCreateProduct}> <FaEdit /> Create New Prouduct</button>
+                <button className='btn p-1 rounded-md px-2 bg-gray-800 font-medium inline-flex items-center' onClick={handleCreateProduct}> <FaEdit /> Create New Product</button>
             </div>
             {isCreateLoading && <Loader />}
             {isDeleteProductLoading && <Loader />}
@@ -71,7 +72,7 @@ const ProductListScreen = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {products.map((product, index) => (
+                            {data.products.map((product, index) => (
                                 <tr key={index} className=" border-b bg-gray-700 ">
                                     <td className="px-6 py-4">
                                         {product._id}
@@ -106,8 +107,10 @@ const ProductListScreen = () => {
                     </table>
                 </div>
             )}
+
+            {data && <div className='p-4 flex  justify-center '><Paginate pages={data.pages} page={data.page} isAdmin="true"/></div> }
         </div>
-    </>
-}
+    </>;
+};
 
 export default ProductListScreen
