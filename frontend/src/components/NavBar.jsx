@@ -6,6 +6,7 @@ import NavDropDown from './NavDropDown';
 import { logout } from '../slices/authSlice';
 import { useLogoutMutation } from '../slices/userApiSlice';
 import AdminDropDown from './AdminDropDown';
+import SearchBar from './SearchBar';
 
 
 const NavBar = () => {
@@ -40,6 +41,7 @@ const NavBar = () => {
                 </Link>
                 <div>
                     <div className='flex space-x-4 font-medium text-2xl items-center justify-center'>
+                        <SearchBar />
                         <Link to='/cart' className='inline-flex'>
                             <Badge badgeContent={ cartItems.length } color='primary'>
                                 <FaShoppingCart />
