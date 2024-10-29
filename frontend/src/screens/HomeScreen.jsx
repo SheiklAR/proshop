@@ -9,9 +9,9 @@ import Paginate from "../components/Paginate";
 
 
 const HomeScreen = () => {
-  const { pageNumber } = useParams();
+  const { keyword, pageNumber } = useParams();
 
-  const { data, isLoading, error } = useGetProductsQuery({ pageNumber });
+  const { data, isLoading, error } = useGetProductsQuery({ keyword, pageNumber });
   // useEffect(() => { console.log(data) }, [data]);
   
   return (
@@ -31,7 +31,7 @@ const HomeScreen = () => {
             ))}
               </div>
               <div className="px-12">
-              <Paginate pages={data.pages} page={data.page} />
+              <Paginate pages={data.pages} page={data.page} keyword={keyword ? keyword : ''} />
               </div>
         </>
       )}

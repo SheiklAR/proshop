@@ -8,7 +8,7 @@ const  ProductCard= ({product}) => {
       <div>
         <div className='bg-slate-100 rounded-lg border-2 border-gray-300 max-w-sm'>
           <div className='p-2'>
-            <Link to={`product/${product._id}`}>
+            <Link to={`/product/${product._id}`}>
               <img src={product.image}
                 alt={product.name}
                 className='rounded-lg transition-transform duration-300 hover:scale-[101%] ' />
