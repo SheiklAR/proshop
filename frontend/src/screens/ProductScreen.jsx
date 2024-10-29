@@ -9,6 +9,7 @@ import Qty from "../components/Qty";
 import { addToCart } from "../slices/cartSlice";
 import { toast } from "react-toastify";
 import { Rating } from "@mui/material";
+import Meta from "../components/Meta";
 
 
 const ProductScreen = () => {
@@ -73,6 +74,7 @@ const ProductScreen = () => {
           <AlertMessage message={error.data?.message || error.error} />
         ) : (
           <>
+            <Meta title={product.name} />
             <div className="p-2 md:flex md:space-x-2">
               <div className="">
                 <img src={product.image}
