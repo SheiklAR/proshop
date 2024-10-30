@@ -20,7 +20,7 @@ const ProductCarousel = ({ products }) => {
       >
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className="w-full flex-shrink-0 flex flex-col items-center p-4"
             >
                 <Link to={`/product/${product._id}`}>    
