@@ -25,7 +25,7 @@ const OrderScreen = () => {
     
     const [getClientSecret, { data: clientSecret, isLoading: isSecretLoading, error: secretError }] = useGetStripeClientSecretMutation();
     
-    const [orderDeliver, { data: deliverData, refetch: deliverRefetch, isLoading: isDeliverLoading, error: deliverError }] = useUpdateOrderDeliverMutation();
+    const [orderDeliver, { data: deliverData, isLoading: isDeliverLoading, error: deliverError }] = useUpdateOrderDeliverMutation();
 
     useEffect(() => {
         if (order) {
@@ -50,7 +50,7 @@ const OrderScreen = () => {
         try {
             await orderDeliver({ orderId });
             console.log("isdeliverloading", isDeliverLoading);
-            deliverRefetch();
+            refetch();
             toast.success('Order Delivered');
             window.location.reload();
         } catch (err) {
@@ -134,7 +134,7 @@ const OrderScreen = () => {
                     
                         </div>
 
-                        {clientSecret && !isPaid && userInfo && !userInfo.isAdmin && (
+                        {clientSecret && !isPaid && userInfo && (
 
                             <Elements stripe={stripePromise} options={{ clientSecret: clientSecret.clientSecret }}>
                                 <CheckOutForm setIsPaid={setIsPaid} setPaidStatus={setPaidStatus} />

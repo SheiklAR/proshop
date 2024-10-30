@@ -64,10 +64,10 @@ const router = createBrowserRouter(
 )
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <HelmetProvider>
+    
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
-    </HelmetProvider>
+
   </StrictMode>,
 );

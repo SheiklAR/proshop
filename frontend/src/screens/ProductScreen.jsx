@@ -74,7 +74,7 @@ const ProductScreen = () => {
           <AlertMessage message={error.data?.message || error.error} />
         ) : (
           <>
-            <Meta title={product.name} />
+            {/* <Meta title={product.name} /> */}
             <div className="p-2 md:flex md:space-x-2">
               <div className="">
                 <img src={product.image}
