@@ -14,7 +14,7 @@ import Meta from "../components/Meta";
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
 
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ const ProductScreen = () => {
     }
   };
 
-  const signInMessage  = (
+  const signInMessage = (
     <>
       <Link className="underline font-semibold " to="/login">Sign In</Link> to review the product
     </>
@@ -84,64 +84,64 @@ const ProductScreen = () => {
                 
               <ProductDetails product={product} />
 
-
-              <div className="bg-white shadow-md">
-                <span>Price: <strong className="px-4 py-1">${product.price}</strong></span>
-                <span>Status: <strong className="px-4 py-1">{product.countInStock}</strong></span>
+              <div className="bg-white-50  p-3 text-gray-700 shadow-md shadow-slate-800">
+                <div className="py-2 my-2">
+                  <div className="flex items-center">
+                    <span className="font-semibold text-gray-500">Price: <strong className="px-4 py-1">${product.price}</strong></span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="font-semibold text-gray-500">Stock: <strong className="px-4 py-1">{product.countInStock}</strong></span>
+                  </div>
+                </div>
                   
-                {product.countInStock > 0 &&
+                {product.countInStock > 0 && <div>
                   <Qty qty={qty}
                     values={product.countInStock}
                     handleChange={handleChange}
-                  />}
-                  
-                <Link to="/">
+                  />
                   <button
                     disabled={product.countInStock === 0}
-                    className="bg-gray-700 p-2 rounded-md hover:bg-gray-500 text-white text-sm border-2 border-gray-950 font-semibold"
+                    className="bg-gray-700 my-1 p-2 rounded-sm hover:bg-gray-500 text-white text-sm border-2 border-gray-700 font-semibold"
                     onClick={addToCartHandler}
                   >
                     Add to cart
                   </button>
-                </Link>
-          
-                <hr className="max-w-48 mx-auto  py-4 bg-gray-300" />
-          
+                </div>}
               </div>
             </div>
-              <div className="max-w-xl m-2">
+            <div className="max-w-xl m-2">
                 
-              <h3 className="text-3xl font-semibold text-gray-600">Reviews</h3>
-                {product.reviews.length === 0 && <AlertMessage message="No reviews" color="info" />}
+              <h3 className="text-3xl font-semibold my-2 text-gray-600">Reviews</h3>
+              {product.reviews.length === 0 && <AlertMessage message="No reviews" color="info" />}
                 
-                {product.reviews.map((review, index) => (
-                  <div key={index} className="p-2 bg-slate-100 flex-col space-y-2">
+              {product.reviews.map((review, index) => (
+                <div key={index} className="p-2 mb-1 bg-slate-100 flex-col space-y-2">
                   <p className="text-xl"><strong>{review.name}</strong></p>
                   <Rating value={review.rating} />
                   <p>{review.createdAt.substring(0, 10)}</p>
-                  <p className="font-semibold text-xl">"{ review.comment }"</p>
+                  <p className="font-semibold text-xl">"{review.comment}"</p>
                 </div>
-                ))}
-              <h2 className="m-2 text-2xl font-semibold text-gray-600">Write a customer review</h2>
+              ))}
+              <h2 className="my-1 tracking-tight mt-7 text-2xl font-semibold text-gray-600">Write a customer review</h2>
               {!userInfo ? <AlertMessage message={signInMessage} color="info" /> : (
                 <form onSubmit={handleSubmit} className="max-w-lg">
                   <div className="mb-5">
                     <label className="block mb-2 text-lg font-medium text-gray-500">Rating</label>
                     
-                      <select className="input-box" onChange={(e) => setRating(e.target.value)}>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>3</option>
-                          <option>4</option>
-                          <option>5</option>
-                      </select>
+                    <select className="input-box" onChange={(e) => setRating(e.target.value)}>
+                      <option>5</option>
+                      <option>4</option>
+                      <option>3</option>
+                      <option>2</option>
+                      <option>1</option>
+                    </select>
                   </div>
                   <div className="mb-5">
-                      <label className="block mb-2 text-lg font-medium text-gray-500">Write a Review</label>
-                      <textarea className="input-box"  placeholder='write a review...' onChange={(e) => setComment(e.target.value)}></textarea>
-                    </div>
+                    <label className="block mb-2 text-lg font-medium text-gray-500">Write a Review</label>
+                    <textarea className="input-box" placeholder='write a review...' onChange={(e) => setComment(e.target.value)}></textarea>
+                  </div>
                     
-                    <button className="btn">Submit</button>
+                  <button className="btn">Submit</button>
                 </form>
               )}
             </div>
@@ -149,8 +149,7 @@ const ProductScreen = () => {
         )}
       
     </div>
-
-  </>
-}
+  </>;
+};
 
 export default ProductScreen
