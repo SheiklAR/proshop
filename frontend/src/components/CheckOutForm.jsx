@@ -42,7 +42,6 @@ const CheckOutForm = ({setIsPaid, setPaidStatus}) => {
                 console.log(payDBError);
             }
             if (updatedOrderDetails) {
-                console.log("uod",updatedOrderDetails);
                 setIsPaid(updatedOrderDetails.isPaid);
                 setPaidStatus(updatedOrderDetails.paidAt);
             }
@@ -54,15 +53,18 @@ const CheckOutForm = ({setIsPaid, setPaidStatus}) => {
     }
 
     return <>
-        <form onSubmit={handleSubmit}>
-        <PaymentElement />
-            <button
-                type="submit"
-                className="btn bg-green-500 text-black hover:bg-green-400"
-                disabled={isProcessing} >
-                {isProcessing ? 'Processing' : 'Pay'}
-            </button>
-        </form>
+        <div className="max-w-sm my-4">
+            <h1 className="font-bold text-gray-500 text-2xl pb-3">Stripe Payment</h1>
+            <form onSubmit={handleSubmit}>
+                <PaymentElement />
+                <button
+                    type="submit"
+                    className="btn bg-green-500 text-black my-2 hover:bg-green-400"
+                    disabled={isProcessing} >
+                    {isProcessing ? 'Processing' : 'Pay'}
+                </button>
+            </form>
+        </div>
     </>;
 }
 
