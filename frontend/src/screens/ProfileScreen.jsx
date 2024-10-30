@@ -114,7 +114,7 @@ const ProfileScreen = () => {
                                 order.paidAt.substring(0,10)
                             ) : (<FaTimes style={{color: "red"}} />)}</td>
                             <td>
-                                {order.isDelivered ? (order.DeliveredAt) : (<FaTimes style={{color: "red"}} />)}
+                                {order.isDelivered ? (order.deliveredAt.substring(0,10)) : (<FaTimes style={{color: "red"}} />)}
                             </td>
                             <td>
                                 <Link to={`/orders/${order._id}`}>
