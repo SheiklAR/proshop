@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import LoginPage from "../components/LoginPage";
+import LoginPage from "../components/LoginForm";
 import { useLoginMutation, useRegisterMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
