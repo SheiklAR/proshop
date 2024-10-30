@@ -94,38 +94,41 @@ const ProfileScreen = () => {
                     </label>
                     <button type="submit" className="btn my-2">Update</button>
                 </form>
-                <table className="table-auto">
-                    <thead>
-                        <tr>
-                            <th className="font-bold text-gray-400">ID</th>
-                            <th className="font-bold text-gray-400">DATE</th>
-                            <th className="font-bold text-gray-400">TOTAL</th>
-                            <th className="font-bold text-gray-400">PAID</th>
-                            <th className="font-bold text-gray-400">Delivered</th>
-                        </tr>
-                        {myOrders && (
-                            myOrders.map((order, index) => (
-                                
-                        <tr key={index} className="font-semibold text-gray-600">
-                            <td>{order._id}</td>
-                            <td>{(order.createdAt).substring(0,10)}</td>
-                            <td>${order.totalPrice}</td>
-                            <td>{order.isPaid ? (
-                                order.paidAt.substring(0,10)
-                            ) : (<FaTimes style={{color: "red"}} />)}</td>
-                            <td>
-                                {order.isDelivered ? (order.deliveredAt.substring(0,10)) : (<FaTimes style={{color: "red"}} />)}
-                            </td>
-                            <td>
-                                <Link to={`/orders/${order._id}`}>
-                                    <button className="btn">Details</button>
-                                </Link>
-                            </td>
-                        </tr>
-                            ))
-                        )}
-                    </thead>
-                </table>
+                <div>
+                    <h1 className="text-3xl font-semibold text-gray-500 my-2">All Orders</h1>
+                    <table className="table-auto border-separate bg-gray-200 border-spacing-x-6 border-spacing-y-1">
+                        <thead>
+                            <tr>
+                                <th className="font-bold text-gray-400">ID</th>
+                                <th className="font-bold text-gray-400">DATE</th>
+                                <th className="font-bold text-gray-400">TOTAL</th>
+                                <th className="font-bold text-gray-400">PAID</th>
+                                <th className="font-bold text-gray-400">Delivered</th>
+                            </tr>
+                            {myOrders && (
+                                myOrders.map((order, index) => (
+                    
+                            <tr key={index} className="font-semibold text-gray-600">
+                                <td>{order._id}</td>
+                                <td>{(order.createdAt).substring(0,10)}</td>
+                                <td>${order.totalPrice}</td>
+                                <td>{order.isPaid ? (
+                                    order.paidAt.substring(0,10)
+                                ) : (<FaTimes style={{color: "red"}} />)}</td>
+                                <td>
+                                    {order.isDelivered ? (order.deliveredAt.substring(0,10)) : (<FaTimes style={{color: "red"}} />)}
+                                </td>
+                                <td>
+                                    <Link to={`/orders/${order._id}`}>
+                                        <button className="btn">Details</button>
+                                    </Link>
+                                </td>
+                            </tr>
+                                ))
+                            )}
+                        </thead>
+                    </table>
+                </div>
                 
             </div>
             
