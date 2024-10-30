@@ -53,7 +53,7 @@ const ProfileScreen = () => {
     
 
     return <>
-        <div className='container mx-auto my-2'>
+        <div className='max-w-6xl m-2 flex justify-center items-center  mx-auto my-2'>
             <div className="md:flex m-2 space-x-8">
                 <form onSubmit={handleSubmit} className=' p-2' >
                     <p className="font-semibold text-3xl text-gray-500 pb-2 uppercase">Profile</p>

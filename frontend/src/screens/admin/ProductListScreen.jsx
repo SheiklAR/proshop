@@ -38,7 +38,7 @@ const ProductListScreen = () => {
     }
 
     return <>
-        <div className='container  md:max-w-4xl mx-auto py-2'>
+        <div className='max-w-6xl mx-auto py-2'>
             <div className='m-2 flex justify-between'>
                 <h1 className='text-gray-600 font-bold text-3xl'>Products</h1>
                 <button className='btn p-1 rounded-md px-2 bg-gray-800 font-medium inline-flex items-center' onClick={handleCreateProduct}> <FaEdit /> Create New Product</button>

@@ -28,8 +28,8 @@ const CartScreen = () => {
   }
 
   return <>
-    <h1>Shopping Cart</h1>
-    
+    <div className="max-w-6xl mx-auto">
+      <h1 className="text-4xl my-8 font-semibold text-gray-500">Shopping Cart</h1>
     {cartItems.length === 0 ? (
       <>
         <AlertMessage message={`Cart is empty...`} />
@@ -88,7 +88,7 @@ const CartScreen = () => {
         Proceed to Checkout
       </button>
     </div>
-    
+    </div>
   </>
 }
 

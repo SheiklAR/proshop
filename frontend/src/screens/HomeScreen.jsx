@@ -28,21 +28,23 @@ const HomeScreen = () => {
         <AlertMessage message={error.data?.message || error.error} />
       ) : (
         <>
-              {keyword &&
-                <Link to={`/`}>
+          <div className="max-w-6xl mx-auto">
+            {keyword &&
+              <Link to={`/`}>
                 <button className="btn mx-28 my-4 ">Go back</button>
-                </Link>}
-              {topProducts && <ProductCarousel products={topProducts} />}
-          <div className="py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 container mx-auto px-12">
-            {data.products.map((product) => (
-              <ProductCard
-                key={product._id}
-                product={product} />
-            ))}
-              </div>
-              <div className="px-12">
+              </Link>}
+            {topProducts && <ProductCarousel products={topProducts} />}
+            <div className="py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-3 gap-6 container mx-auto px-12">
+              {data.products.map((product) => (
+                <ProductCard
+                  key={product._id}
+                  product={product} />
+              ))}
+            </div>
+            <div className="px-12">
               <Paginate pages={data.pages} page={data.page} keyword={keyword ? keyword : ''} />
-              </div>
+            </div>
+          </div>
         </>
       )}
     </>

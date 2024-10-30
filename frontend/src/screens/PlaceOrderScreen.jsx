@@ -52,73 +52,75 @@ const PlaceOrderScreen = () => {
     }
 
     return <>
-        <CheckoutSteps step1 step2 step3 step4 />
-        <div className="grid grid-cols-1 md:grid-cols-3  mx-auto gap-2">
-            <div className="mx-2 md:grid-span-2">
-                <div className="py-2 border-b-2 mx-2">
-                    <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
-                        Shipping
-                    </h1>
-                    <p className="font-semibold text-gray-500 py-4 mx-1 flex">
-                        <span className="font-bold">Address: </span> {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.pinCode}, {cart.shippingAddress.country} 
-                    </p>
-                </div>
-                <div className="py-2 border-b-2 mx-2">
-                    <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
-                        Payment Method
-                    </h1>
-                    <p className="font-semibold text-gray-500 py-4 mx-1 flex">
-                        <span className="font-bold">Payment Method: </span> {cart.paymentMethod}
-                    </p>
-                </div>
-                <div className="py-2 border-b-2 mx-2">
-                    <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
-                        Order Items
-                    </h1>
-                    <div className="grid grid-cols-3 gap-3 max-w-sm">
-                        {cart.cartItems.map((item, index) => (
-                            <div key={index}>
-                                <div className="flex gap-2 col-span-2">
-                                    <img src={item.image} alt={item.name} className="w-24 h-24 rounded" />
-                                    <Link to={`/product/${item._id}`} className="underline">{item.name}</Link>
+        <div className="max-w-6xl mx-auto">
+            <CheckoutSteps step1 step2 step3 step4 />
+            <div className="grid grid-cols-1 md:grid-cols-3  mx-auto gap-2">
+                <div className="mx-2 md:grid-span-2">
+                    <div className="py-2 border-b-2 mx-2">
+                        <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
+                            Shipping
+                        </h1>
+                        <p className="font-semibold text-gray-500 py-4 mx-1 flex">
+                            <span className="font-bold">Address: </span> {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.pinCode}, {cart.shippingAddress.country}
+                        </p>
+                    </div>
+                    <div className="py-2 border-b-2 mx-2">
+                        <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
+                            Payment Method
+                        </h1>
+                        <p className="font-semibold text-gray-500 py-4 mx-1 flex">
+                            <span className="font-bold">Payment Method: </span> {cart.paymentMethod}
+                        </p>
+                    </div>
+                    <div className="py-2 border-b-2 mx-2">
+                        <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
+                            Order Items
+                        </h1>
+                        <div className="grid grid-cols-3 gap-3 max-w-sm">
+                            {cart.cartItems.map((item, index) => (
+                                <div key={index}>
+                                    <div className="flex gap-2 col-span-2">
+                                        <img src={item.image} alt={item.name} className="w-24 h-24 rounded" />
+                                        <Link to={`/product/${item._id}`} className="underline">{item.name}</Link>
+                                    </div>
+                                    <div className="col-span-1">
+                                        {item.qty} x ${item.price} = ${item.price * item.qty}
+                                    </div>
                                 </div>
-                                <div className="col-span-1">
-                                    {item.qty} x ${item.price} = ${item.price * item.qty}
-                                </div>
-                            </div>
-                        ))}
+                            ))}
                             
                             <div>
 
+                            </div>
                         </div>
+                        <p className="font-semibold text-gray-500 py-4 mx-1 flex">
+                            <span className="font-bold">Payment Method: </span> {cart.paymentMethod}
+                        </p>
                     </div>
-                    <p className="font-semibold text-gray-500 py-4 mx-1 flex">
-                        <span className="font-bold">Payment Method: </span> {cart.paymentMethod}
-                    </p>
+                </div>
+                <div className="border-b-2 ">
+                    <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
+                        Shipping
+                    </h1>
+                    <ul className="font-semibold text-gray-500 border-y-2 space-y-8">
+                        <li className="mx-2">Items: ${cart.itemsPrice}</li>
+                        <li className="mx-2">Shipping: ${cart.shippingPrice}</li>
+                        <li className="mx-2">Tax: ${cart.taxPrice}</li>
+                        <li className="mx-2">Total: ${cart.totalPrice}</li>
+                    </ul>
+                    <div>{error && <AlertMessage message={error.data.message} />}</div>
+                    <button
+                        type="button"
+                        className="btn my-2"
+                        onClick={handlePlaceOrder}
+                        disabled={cart.cartItems.length === 0}
+                    >Place Order</button>
+
+                    {isLoading && <Loader />}
                 </div>
             </div>
-            <div className="border-b-2 ">
-            <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
-                        Shipping
-                </h1>
-                <ul className="font-semibold text-gray-500 border-y-2 space-y-8">
-                    <li className="mx-2">Items: ${cart.itemsPrice}</li>
-                    <li className="mx-2">Shipping: ${cart.shippingPrice}</li>
-                    <li className="mx-2">Tax: ${cart.taxPrice }</li>
-                    <li className="mx-2">Total: ${cart.totalPrice}</li>
-                </ul>
-                <div>{error && <AlertMessage message={error.data.message}/>}</div>
-                <button
-                    type="button"
-                    className="btn my-2"
-                    onClick={handlePlaceOrder}
-                    disabled={cart.cartItems.length === 0}
-                >Place Order</button>
-
-                {isLoading && <Loader />}
-            </div>
         </div>
-    </>
-}
+    </>;
+};
 
 export default PlaceOrderScreen

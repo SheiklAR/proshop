@@ -23,7 +23,7 @@ const UserListScreen = () => {
   }
 
   return <>
-    <div className='container  md:max-w-4xl mx-auto py-2'>
+    <div className='max-w-6xl mx-auto py-2'>
            
       <h1 className='m-2 text-gray-600 font-bold text-3xl'>Users</h1>
             
