@@ -58,7 +58,7 @@ const CheckOutForm = ({setIsPaid, setPaidStatus}) => {
         <PaymentElement />
             <button
                 type="submit"
-                className="btn bg-green-500 text-black"
+                className="btn bg-green-500 text-black hover:bg-green-400"
                 disabled={isProcessing} >
                 {isProcessing ? 'Processing' : 'Pay'}
             </button>
