@@ -63,7 +63,7 @@ const ProductScreen = () => {
   
   return <>
     <div className="max-w-6xl m-2 mx-auto">
-      <button className="bg-slate-300 font-semibold px-3 py-1 m-2 rounded-md hover:bg-slate-200" >
+      <button className="bg-slate-300 font-semibold p-3 m-2 rounded-md hover:bg-slate-200" >
         <Link to="/">Go Back</Link>
       </button>
  
@@ -82,32 +82,42 @@ const ProductScreen = () => {
                   alt="" />
               </div>
                 
-              <ProductDetails product={product} />
+                <ProductDetails product={product} />
+                
+                <div className="md:w-60 border-2 divide-y-2 rounded-md max-h-fit font-semibold text-gray-600 shadow-md">
+                  <div className="flex items-center justify-between p-2 py-5">
+                    <div>Price</div>
+                    <div><strong>${product.price}</strong></div>
+                  </div>
+                  <div className="flex items-center justify-between p-2 py-5">
+                    <div>Stock :</div>
+                    <div><strong>{product.countInStock}</strong></div>
+                  </div>
+                  {product.countInStock > 0 &&
+                    <div className="flex items-center justify-between p-2">
+                      <div>Qty</div>
+                      <div>
+                      <Qty qty={qty}
+                      values={product.countInStock}
+                      handleChange={handleChange}
+                    />
+                      </div>
+                    </div> }
+                  {product.countInStock > 0 &&
+                    <div className="flex items-center justify-between p-2">
+                      <div>
+                      <button
+                      disabled={product.countInStock === 0}
+                      className="bg-gray-700 my-1 p-2 rounded-sm hover:bg-gray-500 text-white text-sm border-2 border-gray-700 font-semibold"
+                      onClick={addToCartHandler}
+                    >
+                      Add to cart
+                    </button>
+                      </div>
+                    </div> }
 
-              <div className="bg-white-50  p-3 text-gray-700 shadow-md shadow-slate-800">
-                <div className="py-2 my-2">
-                  <div className="flex items-center">
-                    <span className="font-semibold text-gray-500">Price: <strong className="px-4 py-1">${product.price}</strong></span>
-                  </div>
-                  <div className="flex items-center">
-                    <span className="font-semibold text-gray-500">Stock: <strong className="px-4 py-1">{product.countInStock}</strong></span>
-                  </div>
                 </div>
-                  
-                {product.countInStock > 0 && <div>
-                  <Qty qty={qty}
-                    values={product.countInStock}
-                    handleChange={handleChange}
-                  />
-                  <button
-                    disabled={product.countInStock === 0}
-                    className="bg-gray-700 my-1 p-2 rounded-sm hover:bg-gray-500 text-white text-sm border-2 border-gray-700 font-semibold"
-                    onClick={addToCartHandler}
-                  >
-                    Add to cart
-                  </button>
-                </div>}
-              </div>
+
             </div>
             <div className="max-w-xl m-2">
                 
@@ -149,7 +159,7 @@ const ProductScreen = () => {
         )}
       
     </div>
-  </>;
+  </>
 };
 
 export default ProductScreen
