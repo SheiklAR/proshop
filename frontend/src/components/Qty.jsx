@@ -9,12 +9,12 @@ export default function Qty({qty, values, handleChange}) {
 
   return (
     <FormControl sx={{ my:1, minWidth: 80 }} size="small">
-      <InputLabel id="demo-select-small-label">Qty</InputLabel>
+      {/* <InputLabel id="demo-select-small-label">Qty</InputLabel> */}
       <Select
         labelId="demo-select-small-label"
         id="demo-select-small"
         value={qty}
-        label="Qty"
+        placeholder=''
         onChange={handleChange}
       >
         

@@ -28,7 +28,7 @@ const CartScreen = () => {
   }
 
   return <>
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-fit m-2 md:ml-20 divide-y">
       <h1 className="text-4xl my-8 font-semibold text-gray-500">Shopping Cart</h1>
     {cartItems.length === 0 ? (
       <>
@@ -40,7 +40,7 @@ const CartScreen = () => {
     ) : (cartItems.map((item) => (
       <div key={item._id} className='container md:flex my-2 mx-2'>
         
-        <div className="md:flex mt-10 justify-start  gap-4 md:divide-y space-x-6 items-start max-w-lg">
+        <div className="md:flex mt-10 justify-start  gap-4 space-x-6 items-start max-w-lg">
 
           <div className="md:flex space-x-2">
             <img src={item.image} alt="" className="h-24 
