@@ -82,41 +82,41 @@ const ProductScreen = () => {
                   alt="" />
               </div>
                 
-                <ProductDetails product={product} />
+              <ProductDetails product={product} />
                 
-                <div className="md:w-60 border-2 divide-y-2 rounded-md max-h-fit font-semibold text-gray-600 shadow-md">
-                  <div className="flex items-center justify-between p-2 py-5">
-                    <div>Price</div>
-                    <div><strong>${product.price}</strong></div>
-                  </div>
-                  <div className="flex items-center justify-between p-2 py-5">
-                    <div>Stock :</div>
-                    <div><strong>{product.countInStock}</strong></div>
-                  </div>
-                  {product.countInStock > 0 &&
-                    <div className="flex items-center justify-between p-2">
-                      <div>Qty</div>
-                      <div>
-                      <Qty qty={qty}
-                      values={product.countInStock}
-                      handleChange={handleChange}
-                    />
-                      </div>
-                    </div> }
-                  {product.countInStock > 0 &&
-                    <div className="flex items-center justify-between p-2">
-                      <div>
-                      <button
-                      disabled={product.countInStock === 0}
-                      className="bg-gray-700 my-1 p-2 rounded-sm hover:bg-gray-500 text-white text-sm border-2 border-gray-700 font-semibold"
-                      onClick={addToCartHandler}
-                    >
-                      Add to cart
-                    </button>
-                      </div>
-                    </div> }
-
+              <div className="md:w-60 border-2 divide-y-2 rounded-md max-h-fit font-semibold text-gray-600 shadow-md">
+                <div className="flex items-center justify-between p-2 py-5">
+                  <div>Price</div>
+                  <div><strong>${product.price}</strong></div>
                 </div>
+                <div className="flex items-center justify-between p-2 py-5">
+                  <div>Stock :</div>
+                  <div><strong>{product.countInStock}</strong></div>
+                </div>
+                {product.countInStock > 0 &&
+                  <div className="flex items-center justify-between p-2">
+                    <div>Qty</div>
+                    <div>
+                      <Qty qty={qty}
+                        values={product.countInStock}
+                        handleChange={handleChange}
+                      />
+                    </div>
+                  </div>}
+                {product.countInStock > 0 &&
+                  <div className="flex items-center justify-between p-2">
+                    <div>
+                      <button
+                        disabled={product.countInStock === 0}
+                        className="bg-gray-700 my-1 p-2 rounded-sm hover:bg-gray-500 text-white text-sm border-2 border-gray-700 font-semibold"
+                        onClick={addToCartHandler}
+                      >
+                        Add to cart
+                      </button>
+                    </div>
+                  </div>}
+
+              </div>
 
             </div>
             <div className="max-w-xl m-2">
