@@ -57,8 +57,8 @@ const PlaceOrderScreen = () => {
             <div className="grid grid-cols-1 md:grid-cols-3  mx-auto gap-2">
                 <div className="mx-2 md:grid-span-2">
                     <div className="py-2 border-b-2 mx-2">
-                        <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
-                            Shipping
+                        <h1 className='text-4xl font-bold text-gray-600 py-2 mx-1'>
+                            Shipping Address
                         </h1>
                         <p className="font-semibold text-gray-500 py-4 mx-1 flex">
                             <span className="font-bold">Address: </span> {cart.shippingAddress.address}, {cart.shippingAddress.city}, {cart.shippingAddress.pinCode}, {cart.shippingAddress.country}
@@ -76,26 +76,24 @@ const PlaceOrderScreen = () => {
                         <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1'>
                             Order Items
                         </h1>
-                        <div className="grid grid-cols-3 gap-3 max-w-sm">
+                        <div className="divide-y space-y-4">
                             {cart.cartItems.map((item, index) => (
                                 <div key={index}>
-                                    <div className="flex gap-2 items-center col-span-2">
+                                    <div className="flex gap-2 items-center py-2">
                                         <img src={item.image} alt={item.name} className="w-24 h-24 rounded" />
-                                        <Link to={`/product/${item._id}`} className="underline">{item.name}</Link>
+                                        <div>
+                                            <Link to={`/product/${item._id}`} className="underline">{item.name}</Link>
+                                            <p className="py-1 text-gray-700">
+                                                {item.qty} x ${item.price} = ${item.price * item.qty}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div className="col-span-2">
-                                        {item.qty} x ${item.price} = ${item.price * item.qty}
-                                    </div>
+                                    <p className="font-semibold text-gray-500 py-2 mx-1 flex">
+                                        <span className="font-bold">Payment Method <span className="font-semibold">{cart.paymentMethod}</span></span>
+                                    </p>
                                 </div>
                             ))}
-                            
-                            <div>
-
-                            </div>
                         </div>
-                        <p className="font-semibold text-gray-500 py-4 mx-1 flex">
-                            <span className="font-bold">Payment Method <span className="font-semibold">{cart.paymentMethod}</span></span>
-                        </p>
                     </div>
                 </div>
                 <div className="border-b-2 ">
