@@ -28,12 +28,12 @@ const NavBar = () => {
             console.log(err);
         }
         
-    }   
+    }
 
  
-    return (
-        <div className='bg-gray-900 p-4'>
-            <div className='flex container items-center text-white justify-between'>
+    return <>
+        <div className='bg-gray-900 p-4 '>
+            <div className='flex container items-center text-white justify-between max-w-6xl mx-auto'>
                 <Link to="/">
                     <div className='font-bold py-4 text-2xl'>
                         Proshop
@@ -43,17 +43,17 @@ const NavBar = () => {
                     <div className='flex space-x-4 font-medium text-2xl items-center justify-center'>
                         <SearchBar />
                         <Link to='/cart' className='inline-flex'>
-                            <Badge badgeContent={ cartItems.length } color='primary'>
+                            <Badge badgeContent={cartItems.length} color='primary'>
                                 <FaShoppingCart />
                             </Badge>
                         </Link>
 
                         {userInfo ? (
-                            <NavDropDown profileName={ userInfo.name } handleLogout={handleLogout} />
+                            <NavDropDown profileName={userInfo.name} handleLogout={handleLogout} />
                         ) : (
-                        <Link to="/login">
-                            <FaSignInAlt />
-                        </Link>
+                            <Link to="/login">
+                                <FaSignInAlt />
+                            </Link>
      
                         )}
 
@@ -65,7 +65,7 @@ const NavBar = () => {
                 </div>
             </div>
         </div>
-    );
-}
+    </>
+};
 
 export default NavBar
