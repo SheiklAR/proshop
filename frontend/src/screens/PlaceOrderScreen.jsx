@@ -69,7 +69,7 @@ const PlaceOrderScreen = () => {
                             Payment Method
                         </h1>
                         <p className="font-semibold text-gray-500 py-4 mx-1 flex">
-                            <span className="font-bold">Payment Method: <span className="font-semibold">{cart.paymentMethod}</span></span> 
+                            <span className="font-bold">Payment Method: <span className="font-semibold">{cart.paymentMethod}</span></span>
                         </p>
                     </div>
                     <div className="py-2 border-b-2 mx-2">
@@ -80,7 +80,8 @@ const PlaceOrderScreen = () => {
                             {cart.cartItems.map((item, index) => (
                                 <div key={index}>
                                     <div className="flex gap-2 items-center py-2">
-                                        <img src={item.image} alt={item.name} className="w-24 h-24 rounded" />
+                                        <img src={item.image.startsWith('/images') ? item.image : (`http://localhost:5000${item.image}`)}
+                                            alt={item.name} className="w-24 h-24 rounded" />
                                         <div>
                                             <Link to={`/product/${item._id}`} className="underline">{item.name}</Link>
                                             <p className="py-1 text-gray-700">
@@ -98,7 +99,7 @@ const PlaceOrderScreen = () => {
                 </div>
                 <div className="border-b-2 ">
                     <h1 className='text-3xl font-semibold text-gray-600 py-2 mx-1 mb-4'>
-                        Total 
+                        Total
                     </h1>
                     <ul className="font-semibold text-gray-500 border-y-2 space-y-8">
                         <li className="mx-2 mt-3">Items: ${cart.itemsPrice}</li>

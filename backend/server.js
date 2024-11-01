@@ -15,6 +15,7 @@ import cookieParser from "cookie-parser";
 import { createPaymentIntent } from "./controllers/orderController.js";
 
 const __dirname = path.resolve(); // set _dirname to current directory
+
 console.log("dirname", __dirname);
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 

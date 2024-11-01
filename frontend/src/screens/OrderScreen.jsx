@@ -96,7 +96,8 @@ const OrderScreen = () => {
                                                     <td>
                                                         <div key={index}>
                                                             <div className="flex m-1 gap-2 items-center p-2">
-                                                                <img src={item.image} alt={item.name} className="w-16 h-12rounded-lg" />
+                                                                <img src={item.image.startsWith('/images') ? item.image : (`http://localhost:5000${item.image}`)}
+                                                                    alt={item.name} className="w-16 h-12rounded-lg" />
                                                                 <Link to={`/product/${item._id}`} className="underline font-medium">{item.name}</Link>
                                                             </div>
                                                         </div>
@@ -159,13 +160,13 @@ const OrderScreen = () => {
 
                             {isDeliverLoading && (<Loader />)}
                         </div>
-                    </div>                 
+                    </div>
                 </div>
                     
                             
             </>
         )}
     </>
-}
+};
 
 export default OrderScreen;

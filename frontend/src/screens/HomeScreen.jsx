@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useGetProductsQuery, useGetTopProductsQuery } from "../slices/productApiSlice";
-import ProductCard from "./ProductCard";
+import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
 import AlertMessage from "../components/AlertMessage";
 import { useEffect } from "react";
@@ -14,6 +14,7 @@ const HomeScreen = () => {
   const { keyword, pageNumber } = useParams();
 
   const { data, isLoading, error } = useGetProductsQuery({ keyword, pageNumber });
+ 
   
   const { data: topProducts, isLoading: isCarouselLoading, error: carouselError } = useGetTopProductsQuery();
   useEffect(() => { console.log(topProducts) }, [topProducts]);
