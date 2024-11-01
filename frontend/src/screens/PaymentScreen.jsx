@@ -32,13 +32,13 @@ const PaymentScreen = () => {
         <div className="max-w-6xl mx-auto">
             <CheckoutSteps step1 step2 step3 />
             <div className="max-w-lg mx-auto">
-                <h2 className='text-3xl font-semibold text-gray-600 py-2 mx-2'>
+                <h2 className='text-3xl font-bold text-gray-600 py-2 mx-2'>
                     Payment
                 </h2>
                 <form
                     onSubmit={handleSubmit}
                 >
-                    <div className="mb-5 mx-1">
+                    <div className="mb-5 mx-1 my-4">
                         <label className="flex items-center mb-2 text-xl font-medium text-gray-700">
                             <input
                                 type="radio"
@@ -47,9 +47,9 @@ const PaymentScreen = () => {
                                 checked={true}
                                 className='mx-2'
                             />
-                            PayPal or Credit card</label>
+                            Stripe or Credit card</label>
                     </div>
-                    <button type="submit" className="btn">Submit</button>
+                    <button type="submit" className="btn mx-1">Submit</button>
                 </form>
             </div>
         </div>
