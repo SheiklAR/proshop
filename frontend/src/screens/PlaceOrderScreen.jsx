@@ -78,7 +78,7 @@ const PlaceOrderScreen = () => {
                             {cart.cartItems.map((item, index) => (
                                 <div key={index}>
                                     <div className="flex gap-2 items-center py-2">
-                                        <img src={item.image.startsWith('/images') ? item.image : (`http://localhost:5000${item.image}`)}
+                                        <img src={item.image}
                                             alt={item.name} className="w-24 h-24 rounded" />
                                         <div>
                                             <Link to={`/product/${item._id}`} className="underline">{item.name}</Link>

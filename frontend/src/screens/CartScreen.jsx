@@ -45,7 +45,7 @@ const CartScreen = () => {
               <div className="flex justify-start my-5  space-x-4 items-start max-w-lg">
 
                 <div className="flex space-x-2">
-                  <img src={item.image.startsWith('/images') ? item.image : (`http://localhost:5000${item.image}`)}
+                  <img src={item.image}
                     alt="" className="h-24 
             w-24" />
                   <p className="underline my-auto max-w-44">{item.name}</p>
