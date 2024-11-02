@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom'
 import Loader from './Loader'
 
 const LoginPage = ({email, password, handleEmailChange, handlePasswordChange, handleSubmit, isLoading}) => {
-    return
-    <>
-        
+    return <>
         <div className='max-w-lg mx-auto py-3'>
             <h1 className='text-3xl mx-2 font-semibold text-gray-600 py-2'>Sign In</h1>
             <form
