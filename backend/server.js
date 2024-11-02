@@ -14,15 +14,6 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cookieParser from "cookie-parser";
 import { createPaymentIntent } from "./controllers/orderController.js";
 
-const __dirname = path.resolve(); // set _dirname to current directory
-
-console.log("dirname", __dirname);
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-
-
-app.get('/', (req, res) => {
-    res.send("Api is running...")
-});
 
 //body parser middleware
 app.use(express.json());
@@ -36,6 +27,27 @@ app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/upload', uploadRoutes);
 app.post('/api/config/stripe', createPaymentIntent);
+
+
+const __dirname = path.resolve(); // set _dirname to current directory
+
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+
+
+
+if (process.env.NODE_ENV === 'production') {
+    //set static folder
+    app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+    //any route that is not api will be redirected to index.html
+    app.get('*', (req, res) =>
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')));
+} else {
+    app.get('/', (req, res) => {
+        res.send("Api is running...")
+    });
+    
+}
 
 
 app.use(notFound);
