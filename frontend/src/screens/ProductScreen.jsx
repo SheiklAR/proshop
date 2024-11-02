@@ -76,7 +76,7 @@ const ProductScreen = () => {
           <>
             <Meta title={product.name} />
             <div className="p-2 md:flex md:space-x-2">
-              <div className="">
+              <div>
                 <img src={product.image.startsWith('/images') ? product.image : (`http://localhost:5000${product.image}`)}
                   className=" object-contain max-w-lg"
                   alt="" />

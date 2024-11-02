@@ -148,7 +148,7 @@ const ProductEditScreen = () => {
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
                     className="input-box"
-                    placeholder='Catecategory'/>
+                    placeholder='Category'/>
             </div>
             <div className="mb-5">
                 <label className="block mb-2 text-sm font-medium text-gray-500">Description</label>
