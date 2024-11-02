@@ -33,7 +33,6 @@ export const ProductApiSlice = apiSlice.injectEndpoints({
 
         updateProduct: builder.mutation({
             query: (product) => {
-                console.log("updateProductMutation", product)
                 return ({
                     url: `${PRODUCTS_URL}/${product.productId}`,
                     method: "PUT",

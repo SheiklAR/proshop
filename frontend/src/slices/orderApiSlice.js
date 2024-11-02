@@ -50,8 +50,6 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
 
         updateOrderDeliver: builder.mutation({
             query: ({ orderId } ) => {
-                
-                console.log("orderId from redux", orderId);
                 return({
                     url: `${ORDERS_URL}/${orderId}/deliver`,
                     method: "PUT",

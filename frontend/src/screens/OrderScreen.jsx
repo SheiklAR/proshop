@@ -44,12 +44,10 @@ const OrderScreen = () => {
         }
     }, [order, getClientSecret, secretError]);
     
-    // console.log("cs",clientSecret)
 
     const handleOrderDeliver = async () => {
         try {
             await orderDeliver({ orderId });
-            console.log("isdeliverloading", isDeliverLoading);
             refetch();
             toast.success('Order Delivered');
             window.location.reload();

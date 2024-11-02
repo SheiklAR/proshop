@@ -21,7 +21,6 @@ const ProductEditScreen = () => {
     const navigate = useNavigate();
 
     const { data: product, isLoading, error } = useGetProductDetailsQuery(productId);
-    console.log(product)
 
     const [updateProduct, { data: updatedProduct, isLoading: isLoadingUpdate }] = useUpdateProductMutation();
 
@@ -54,7 +53,6 @@ const ProductEditScreen = () => {
         }
         
         const result = await updateProduct(updatedProduct);
-        console.log("result",result)
         if (result.error) {
             toast.error(result.error.data.message);
         } else {
@@ -66,14 +64,11 @@ const ProductEditScreen = () => {
     const handleFileUpload = async (e) => {
         const formData = new FormData();
         formData.append('image', e.target.files[0]);
-        console.log("formDAta",formData)
         try {
             const res = await uploadImage(formData).unwrap();
             toast.success(res.message);
             setImage(res.image);
-            console.log("res.image", res.image);
         } catch (err) {
-            console.log(err)
             toast.error(err?.data?.message || err.error);
         }
 

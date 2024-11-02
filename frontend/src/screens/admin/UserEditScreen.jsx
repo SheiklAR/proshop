@@ -23,7 +23,6 @@ const UserEditScreen = () => {
     
     
     useEffect(() => { 
-        // console.log(user)
         if (user) {
             setName(user.name);
             setEmail(user.email);

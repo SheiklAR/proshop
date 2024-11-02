@@ -17,7 +17,6 @@ const HomeScreen = () => {
  
   
   const { data: topProducts, isLoading: isCarouselLoading, error: carouselError } = useGetTopProductsQuery();
-  useEffect(() => { console.log(topProducts) }, [topProducts]);
 
   
   return (

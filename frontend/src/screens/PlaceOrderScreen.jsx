@@ -13,7 +13,6 @@ import Loader from "../components/Loader";
 const PlaceOrderScreen = () => {
     const cart = useSelector((state) => state.cart);
 
-    console.log("cartItems", cart.cartItems)
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -32,7 +31,6 @@ const PlaceOrderScreen = () => {
 
     const handlePlaceOrder = async (e) => {
         e.preventDefault();
-        console.log('Order items before sending:', cart.cartItems);
         try {
             const res = await createOrder({
                 orderItems: cart.cartItems,
