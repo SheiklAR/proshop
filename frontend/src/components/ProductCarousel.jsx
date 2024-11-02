@@ -13,7 +13,7 @@ const ProductCarousel = ({ products }) => {
   };
 
   return (
-    <div className="relative w-full max-w-xl bg-gray-200 my-2 mx-auto overflow-hidden">
+    <div className="relative w-full max-w-6xl bg-gray-200 my-2 mx-auto overflow-hidden">
       <div
         className="flex transition-transform ease-in-out duration-500"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
