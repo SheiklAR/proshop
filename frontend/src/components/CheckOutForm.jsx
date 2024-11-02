@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 const CheckOutForm = ({setIsPaid, setPaidStatus}) => {
     const { id: orderId } = useParams();
     const [isProcessing, setIsProcessing] = useState(false);
+    const [isPaymentElementReady, setIsPaymentElementReady] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
 
@@ -56,13 +57,16 @@ const CheckOutForm = ({setIsPaid, setPaidStatus}) => {
         <div className="max-w-sm my-4">
             <h1 className="font-bold text-gray-500 text-2xl pb-3">Stripe Payment</h1>
             <form onSubmit={handleSubmit}>
-                <PaymentElement />
+            <PaymentElement
+                    onReady={() => setIsPaymentElementReady(true)} // Set loading state to false when ready
+                />
                 <button
                     type="submit"
                     className="btn bg-green-500 text-black my-2 hover:bg-green-400"
                     disabled={isProcessing} >
                     {isProcessing ? 'Processing' : 'Pay'}
                 </button>
+                {!isPaymentElementReady && <p>Loading payment options...</p>}
             </form>
         </div>
     </>;

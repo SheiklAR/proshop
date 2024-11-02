@@ -128,9 +128,7 @@ const createPaymentIntent = asyncHandler(async (req, res) => {
         const paymentIntent = await stripe.paymentIntents.create({
             currency: "usd",
             amount: amount,
-            automatic_payment_methods: {enabled: true}
         });
-    
         res.send({ clientSecret: paymentIntent.client_secret });
     } catch (error) {
         res.status(400).json({ message: error.message });
